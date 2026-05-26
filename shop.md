@@ -1,8 +1,16 @@
+import { useState } from "react";
+
+const products = [
+  { id: 1, name: "iPhone 15", category: "phones", price: 1000 },
+  { id: 2, name: "Samsung Galaxy", category: "phones", price: 900 },
+  { id: 3, name: "MacBook Pro", category: "laptops", price: 2000 },
+  { id: 4, name: "Lenovo ThinkPad", category: "laptops", price: 1200 },
+];
+
 function App() {
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("all");
 
-  // 🔍 ФИЛЬТРАЦИЯ ТОВАРОВ
   const filteredProducts = products.filter((product) => {
     const matchSearch = product.name
       .toLowerCase()
@@ -16,17 +24,14 @@ function App() {
 
   return (
     <div style={{ padding: "20px" }}>
-      <h1>🛒 Shop</h1>
+      <h1>Shop</h1>
 
-      {/* 🔍 SEARCH INPUT */}
       <input
-        type="text"
-        placeholder="Search products..."
         value={search}
         onChange={(e) => setSearch(e.target.value)}
+        placeholder="Search..."
       />
 
-      {/* 📂 CATEGORY FILTER */}
       <select
         value={category}
         onChange={(e) => setCategory(e.target.value)}
@@ -36,23 +41,15 @@ function App() {
         <option value="laptops">Laptops</option>
       </select>
 
-      <hr />
-
-      {/* 🧾 PRODUCTS LIST */}
-      {filteredProducts.map((product) => (
-        <div
-          key={product.id}
-          style={{
-            border: "1px solid #ccc",
-            padding: "10px",
-            marginBottom: "10px",
-          }}
-        >
-          <h3>{product.name}</h3>
-          <p>Category: {product.category}</p>
-          <p>Price: ${product.price}</p>
-        </div>
-      ))}
+      <div>
+        {filteredProducts.map((product) => (
+          <div key={product.id}>
+            <h3>{product.name}</h3>
+            <p>{product.category}</p>
+            <p>{product.price}$</p>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
